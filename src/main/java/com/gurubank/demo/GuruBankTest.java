@@ -1,13 +1,12 @@
 package com.gurubank.demo;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class GuruBankTest {
+
     public static void main(String[] args) throws Exception {
 //        ChromeDriver driver = new ChromeDriver();
 //        EdgeDriver driver = new EdgeDriver();
@@ -119,7 +118,17 @@ public class GuruBankTest {
                             System.out.println("Customer Registration is successful but details are not correct");
                         }
 
-                        driver.findElement(By.linkText("Log out")).click();
+//                        driver.findElement(By.linkText("Log out")).click();
+                        WebElement logOut = driver.findElement(By.linkText("Log out"));
+//                        Actions actions = new Actions(driver);
+//                        actions.moveToElement(logOut).click(logOut).build().perform();
+
+//                        ocument.querySelector('a[href="Logout.php"]').click();
+
+                        JavascriptExecutor jse = (JavascriptExecutor) driver;
+//                        jse.executeScript("document.querySelector('a[href=\"Logout.php\"]').click();");
+                        jse.executeScript("arguments[0].click();",logOut);
+
                         Thread.sleep(2000);
                         driver.switchTo().alert().accept();
                         Thread.sleep(2000);

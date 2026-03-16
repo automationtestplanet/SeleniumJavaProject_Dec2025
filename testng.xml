@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true"
+          name="D:/Trainings/Selenium-Java-RestAssured/Dec2025/intellij/SeleniumMavenProject_Dec2025">
+        <classes>
+            <class name="com.gurubank.GuruBankTest">
+                <methods>
+                    <include name="createNewCustomer"/>
+                    <include name="createNewAccount"/>
+                    <include name="deleteAccount"/>
+                    <include name="deleteCustomer"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

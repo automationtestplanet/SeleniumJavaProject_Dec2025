@@ -59,10 +59,15 @@ public class NewCustomerPage extends BasePage {
     }
 
     public void clickSubmitButton() {
-        driver.findElement(By.name("sub")).click();
+        try {
+            driver.findElement(By.name("sub")).click();
+            Thread.sleep(2000);
+        } catch (Exception e) {
+            System.out.println("Exception occurred while clicking on submit button : " + e.getMessage());
+        }
     }
 
-    public void createNewCustomer(String name, String gender, String dob, String address, String city, String state, String pinCode, String phoneNum, String email, String password) throws InterruptedException {
+    public void createNewCustomer(String name, String gender, String dob, String address, String city, String state, String pinCode, String phoneNum, String email, String password) {
         setCustomerName(name);
         selectGender(gender);
         setDob(dob);
@@ -74,17 +79,15 @@ public class NewCustomerPage extends BasePage {
         setEmail(email);
         setPasswordForCustomer(password);
         clickSubmitButton();
-        Thread.sleep(2000);
-        driver.navigate().refresh();
-        Thread.sleep(2000);
+        refreshPage();
     }
 
     public String getCustomerName() {
-        return driver.findElement(By.xpath("//td[text()='Customer Name']//following-sibling::td")).getText().trim();
+        return getTextFromElement("Customer Name");
     }
 
     public String getCustomerMobileNumber() {
-        return driver.findElement(By.xpath("//td[text()='Mobile No.']//following-sibling::td")).getText().trim();
+        return getTextFromElement("Mobile No.");
     }
 
     public boolean verifyNewCustomerDetails(String expCustomerName, String expMobileNumber) {

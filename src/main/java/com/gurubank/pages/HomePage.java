@@ -10,13 +10,22 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
-    public boolean  verifyManagerId(String expManagerId) throws InterruptedException {
-        return driver.findElement(By.xpath("//td[contains(text(),'Manger Id :')]")).getText().contains(expManagerId);
+    public boolean verifyManagerId(String expManagerId) {
+        try {
+            return driver.findElement(By.xpath("//td[contains(text(),'Manger Id :')]")).getText().contains(expManagerId);
+        } catch (Exception e) {
+            System.out.println("Exception occurred while verifying Manager ID : " + e.getMessage());
+            return false;
+        }
     }
 
-    public void logoutFromGuruBank() throws InterruptedException {
-        WebElement logOut = driver.findElement(By.linkText("Log out"));
-        clickUsingJavaScriptExecutor(logOut);
-        acceptAlert();
+    public void logoutFromGuruBank() {
+        try {
+            WebElement logOut = driver.findElement(By.linkText("Log out"));
+            clickUsingJavaScriptExecutor(logOut);
+            acceptAlert();
+        } catch (Exception e) {
+            System.out.println("Exception occurred while Logout from the application : " + e.getMessage());
+        }
     }
 }

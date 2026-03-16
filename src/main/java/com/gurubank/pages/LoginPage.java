@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -33,11 +33,15 @@ public class LoginPage extends BasePage{
         loginButton.click();
     }
 
-    public void loginToGuruBank(String userName, String password) throws Exception {
-        setUserName(userName);
-        setPassword(password);
-        clickLoginButton();
-        Thread.sleep(5000);
+    public void loginToGuruBank(String userName, String password) {
+        try {
+            setUserName(userName);
+            setPassword(password);
+            clickLoginButton();
+            Thread.sleep(5000);
+        } catch (Exception e) {
+            System.out.println("Exception occurred while Login to the application : " + e.getMessage());
+        }
     }
 
 }

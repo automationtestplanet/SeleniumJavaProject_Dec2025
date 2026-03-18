@@ -17,4 +17,8 @@ public class DriverManager {
          return driver;
      }
 
+    public static void setDriver(WebDriver driver) {
+        DriverManager.driver = driver;
+    }
+
 }

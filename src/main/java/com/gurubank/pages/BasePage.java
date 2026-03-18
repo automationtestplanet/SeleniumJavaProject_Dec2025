@@ -56,6 +56,15 @@ public class BasePage {
         }
     }
 
+    public String getAlertMessage(){
+        try {
+            return driver.switchTo().alert().getText();
+        } catch (Exception e) {
+            System.out.println("Exception occurred while getting the Alert message : " + e.getMessage());
+            return null;
+        }
+    }
+
     public void refreshPage() {
         try {
             driver.navigate().refresh();

@@ -10,7 +10,7 @@ public class DriverManager {
      private DriverManager() {
          ChromeOptions options = new ChromeOptions();
          options.addArguments("--headless");
-         driver = new ChromeDriver();
+         driver = new ChromeDriver(options);
      }
 
      public static WebDriver getDriver() {

@@ -1,12 +1,15 @@
 package com.gurubank.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import com.gurubank.commons.DriverManager;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class BasePage {
 
@@ -58,6 +61,8 @@ public class BasePage {
 
     public String getAlertMessage(){
         try {
+            WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.alertIsPresent());
             return driver.switchTo().alert().getText();
         } catch (Exception e) {
             System.out.println("Exception occurred while getting the Alert message : " + e.getMessage());
@@ -68,7 +73,7 @@ public class BasePage {
     public void refreshPage() {
         try {
             driver.navigate().refresh();
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (Exception e) {
             System.out.println("Exception occurred while refresh the Page : " + e.getMessage());
 

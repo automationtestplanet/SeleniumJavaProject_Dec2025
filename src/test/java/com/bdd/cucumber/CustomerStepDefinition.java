@@ -18,7 +18,6 @@ public class CustomerStepDefinition {
     @Given("user is on the Create {string} page")
     public void userIsOnTheCreatePage(String pageName) {
         homePage.clickBankerOption(pageName);
-        Commons.captureScreenShot();
         Assert.assertTrue(homePage.verifyPageHeading(pageName), "New Customer page is not displayed");
     }
     @When("the user enters Name as {string}, Gender as {string}, DateOfBirth as {string}, Address as {string}, City as {string}, State as {string}, PinCode as {string}, Mobile Number as {string}, Email as {string} and Password as {string}")
@@ -41,17 +40,14 @@ public class CustomerStepDefinition {
     }
     @Then("a new customer account should be created successfully")
     public void aNewCustomerAccountShouldBeCreatedSuccessfully() {
-        Commons.captureScreenShot();
         Assert.assertTrue(newCustomerPage.verifyPageHeading("Customer Registered Successfully!!!"), "Customer Registration was not successful");
     }
     @Then("Customer Name {string} and PhoneNumber {string} should be displayed")
     public void customerNameAndPhoneNumberShouldBeDisplayed(String name, String phoneNum) {
-        Commons.captureScreenShot();
         Assert.assertTrue(newCustomerPage.verifyNewCustomerDetails(name, phoneNum), "Customer details are not correct");
     }
     @Then("the user saves customer Id as {string} in test properties file for future use")
     public void theUserSavesCustomerIdInTestPropertiesFileForFutureUse(String customerIdKey) {
-        Commons.captureScreenShot();
         Assert.assertNotNull(newCustomerPage.getCustomerId(), "Customer ID is null");
         String customerId = newCustomerPage.getCustomerId();
         ReadTestProperties.setTestPropertyValue(customerIdKey.replaceAll(" ","."), customerId);
@@ -60,13 +56,11 @@ public class CustomerStepDefinition {
     @Given("user is on the {string} page")
     public void userIsOnThePage(String pageName) {
         homePage.clickBankerOption(pageName);
-        Commons.captureScreenShot();
         Assert.assertTrue(homePage.verifyPageHeading("Delete Customer Form"), "Delete Customer page is not displayed");
     }
     @When("the user enters customer Id {string}")
     public void theUserEntersCustomerId(String customerId) {
         String retrievedCustomerId = ReadTestProperties.getTestPropertyValue(customerId.replaceAll(" ","."));
-        Commons.captureScreenShot();
         Assert.assertNotNull(retrievedCustomerId,
             "Customer ID not found in properties for key: " + customerId);
         deleteCustomerPage.setCustomerId(retrievedCustomerId);
@@ -76,12 +70,10 @@ public class CustomerStepDefinition {
         deleteCustomerPage.clickDeleteCustomerSubmitButton();
         deleteCustomerPage.acceptAlert();
         deleteCustomerPage.refreshPage();
-
+        Assert.assertTrue(deleteCustomerPage.getAlertMessage().contains("Customer does not exist"), "Customer was not deleted successfully");
     }
     @Then("a customer should be deleted successfully")
     public void aCustomerShouldBeDeletedSuccessfully() {
-        Commons.captureScreenShot();
-        Assert.assertTrue(deleteCustomerPage.getAlertMessage().contains("Customer does not exist"), "Customer was not deleted successfully");
         deleteCustomerPage.acceptAlert();
     }
 }
